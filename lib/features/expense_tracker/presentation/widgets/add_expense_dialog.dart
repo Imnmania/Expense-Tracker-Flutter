@@ -50,10 +50,11 @@ Future<bool> showAddNewDialog(
               // expense amount
               TextFormField(
                 controller: expenseAmountController,
-                keyboardType: const TextInputType.numberWithOptions(
+                /* keyboardType: const TextInputType.numberWithOptions(
                   decimal: false,
                   signed: false,
-                ),
+                ), */
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Amount',
                   border: OutlineInputBorder(
