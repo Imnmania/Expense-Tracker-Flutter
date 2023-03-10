@@ -35,6 +35,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
         ExpenseLoadedState(
           expenseList: expenseRepository.getAllExpenseList(),
           startOfWeekDate: expenseRepository.startOfWeekDate(),
+          dailyExpenseSummary: expenseRepository.calculateDailyExpenseSummary(),
         ),
       );
     } catch (ex) {

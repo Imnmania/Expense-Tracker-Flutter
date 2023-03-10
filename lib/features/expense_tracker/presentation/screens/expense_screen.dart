@@ -17,6 +17,7 @@ class ExpenseScreen extends StatefulWidget {
 class ExpenseScreenState extends State<ExpenseScreen> {
   late final TextEditingController expenseName;
   late final TextEditingController expenseAmount;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -62,7 +63,7 @@ class ExpenseScreenState extends State<ExpenseScreen> {
                 ),
                 // weekly summary
                 ExpenseSummary(startOfWeek: state.startOfWeekDate),
-
+                const SizedBox(height: 20),
                 // list of expenses
                 ListView.builder(
                   shrinkWrap: true,
@@ -81,7 +82,9 @@ class ExpenseScreenState extends State<ExpenseScreen> {
             );
           }
           if (state is ExpenseLoadFailedState) {
-            return const Text('Failed to load expense list...');
+            return const Center(
+              child: Text('Failed to load expense list...'),
+            );
           }
           return const Center(
             child: Text('No expense items found...'),
@@ -89,12 +92,17 @@ class ExpenseScreenState extends State<ExpenseScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.grey.shade800,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white70,
+        ),
         onPressed: () async {
           final value = await showAddNewDialog(
             context,
             expenseNameController: expenseName,
             expenseAmountController: expenseAmount,
+            formKey: _formKey,
           );
           if (value && context.mounted) {
             BlocProvider.of<ExpenseBloc>(context).add(

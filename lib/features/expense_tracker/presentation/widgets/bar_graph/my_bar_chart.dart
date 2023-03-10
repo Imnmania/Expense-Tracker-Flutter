@@ -42,14 +42,101 @@ class MyBarChart extends StatelessWidget {
     return BarChart(BarChartData(
       maxY: maxY,
       minY: 0,
-      barGroups: myBarData.barData.map((data) {
-        return BarChartGroupData(
-          x: data.x,
-          barRods: [
-            BarChartRodData(toY: data.y),
-          ],
-        );
-      }).toList(),
+      gridData: FlGridData(show: false),
+      borderData: FlBorderData(show: false),
+      titlesData: FlTitlesData(
+        show: true,
+        topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+          showTitles: true,
+          getTitlesWidget: (value, meta) {
+            const style = TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            );
+            Widget text;
+            switch (value.toInt()) {
+              case 0:
+                text = const Text(
+                  'S',
+                  style: style,
+                );
+                break;
+              case 1:
+                text = const Text(
+                  'M',
+                  style: style,
+                );
+                break;
+              case 2:
+                text = const Text(
+                  'T',
+                  style: style,
+                );
+                break;
+              case 3:
+                text = const Text(
+                  'W',
+                  style: style,
+                );
+                break;
+              case 4:
+                text = const Text(
+                  'T',
+                  style: style,
+                );
+                break;
+              case 5:
+                text = const Text(
+                  'F',
+                  style: style,
+                );
+                break;
+              case 6:
+                text = const Text(
+                  'S',
+                  style: style,
+                );
+                break;
+              default:
+                text = const Text(
+                  '',
+                  style: style,
+                );
+                break;
+            }
+            return SideTitleWidget(
+              axisSide: meta.axisSide,
+              space: 3,
+              child: text,
+            );
+          },
+        )),
+      ),
+      barGroups: myBarData.barData.map(
+        (data) {
+          return BarChartGroupData(
+            x: data.x,
+            barRods: [
+              BarChartRodData(
+                toY: data.y,
+                color: Colors.grey.shade800,
+                width: 25,
+                borderRadius: BorderRadius.circular(6),
+                backDrawRodData: BackgroundBarChartRodData(
+                  show: true,
+                  toY: maxY,
+                  color: Colors.grey[200],
+                ),
+              ),
+            ],
+          );
+        },
+      ).toList(),
     ));
   }
 }

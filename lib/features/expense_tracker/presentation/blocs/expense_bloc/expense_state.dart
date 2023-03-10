@@ -21,24 +21,31 @@ class ExpenseLoadingState extends ExpenseState {
 class ExpenseLoadedState extends ExpenseState {
   final List<ExpenseItem> expenseList;
   final DateTime startOfWeekDate;
+  final Map<String, double> dailyExpenseSummary;
 
   const ExpenseLoadedState({
     required this.expenseList,
     required this.startOfWeekDate,
+    required this.dailyExpenseSummary,
   });
 
-  ExpenseLoadedState copyWith({
-    List<ExpenseItem>? expenseList,
-    DateTime? startOfWeekDate,
-  }) {
+  ExpenseLoadedState copyWith(
+      {List<ExpenseItem>? expenseList,
+      DateTime? startOfWeekDate,
+      Map<String, double>? dailyExpenseSummary}) {
     return ExpenseLoadedState(
       expenseList: expenseList ?? this.expenseList,
       startOfWeekDate: startOfWeekDate ?? this.startOfWeekDate,
+      dailyExpenseSummary: dailyExpenseSummary ?? this.dailyExpenseSummary,
     );
   }
 
   @override
-  List<Object> get props => [expenseList];
+  List<Object> get props => [
+        expenseList,
+        startOfWeekDate,
+        dailyExpenseSummary,
+      ];
 }
 
 /// state when loading fails
